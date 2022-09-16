@@ -2,24 +2,47 @@ import Cocoa
 import FlutterMacOS
 
 class MainFlutterWindow: NSWindow {
+    
+    var methodChannel: FlutterMethodChannel!
+    
   override func awakeFromNib() {
-    let flutterViewController = FlutterViewController.init()
+    let viewController = BlurViewController.init()
     let windowFrame = self.frame
-    self.contentViewController = flutterViewController
+    self.contentViewController = viewController
     self.setFrame(windowFrame, display: true)
-      RegisterGeneratedPlugins(registry: flutterViewController)
+
+    RegisterGeneratedPlugins(registry: viewController.flutterViewController)
       
-      // Transparent view
-       self.isOpaque = false
-       self.backgroundColor = .clear
-       // Add the blur layer
-        let blurView = NSVisualEffectView()
-        let view = contentViewController?.view.superview;
-        blurView.frame = CGRect(x: 0, y: 0, width: 2000, height: 2000)
-        view?.addSubview(blurView, positioned: NSWindow.OrderingMode.below, relativeTo: nil)
       
-      //self.isMovableByWindowBackground = true
+      self.methodChannel = FlutterMethodChannel.init(name: "jernal", binaryMessenger: viewController.flutterViewController.engine.binaryMessenger)
+      
+    self.isMovableByWindowBackground = true
     super.awakeFromNib()
   }
     
+}
+
+class BlurViewController: NSViewController {
+    let flutterViewController = FlutterViewController()
+    override func loadView() {
+       let blurView = NSVisualEffectView()
+       blurView.autoresizingMask = [.width, .height]
+       blurView.blendingMode = .behindWindow
+       blurView.state = .active
+       if #available(macOS 10.14, *) {
+           blurView.material = .sidebar
+       }
+       self.view = blurView
+     }
+    
+    
+    override func viewDidLoad() {
+      super.viewDidLoad()
+
+      self.addChild(flutterViewController)
+
+      flutterViewController.view.frame = self.view.bounds
+      flutterViewController.view.autoresizingMask = [.width, .height]
+      self.view.addSubview(flutterViewController.view)
+    }
 }

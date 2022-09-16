@@ -44,7 +44,7 @@ class AppTheme {
     surface: const Color.fromARGB(255, 43, 43, 49),
     onSurface: Colors.white,
     surfaceVariant: const Color.fromARGB(255, 54, 55, 59),
-    onSurfaceVariant: Colors.white,
+    onSurfaceVariant: Colors.black,
     secondaryContainer: Colors.black.withOpacity(0.1),
     onSecondaryContainer: Colors.white,
     primaryContainer: Colors.black.withOpacity(0.1),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jernal/data/preferences.dart';
+import 'package:jernal/data/utils/theme.dart';
 import 'package:jernal/main_content.dart';
-import 'package:jernal/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,13 +18,11 @@ class JernalApp extends StatelessWidget {
       theme: AppTheme.theme(AppTheme.colorScheme),
       darkTheme: AppTheme.theme(AppTheme.colorSchemeDark),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
-          padding: const EdgeInsets.all(32),
-          child: const MainContent(),
-        ),
-      ),
+      initialRoute: "/",
+      routes: {
+        '/': (context) => const MainContent(),
+        '/preferences': (context) => const Preferences(),
+      },
     );
   }
 }
