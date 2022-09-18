@@ -12,7 +12,7 @@ import 'package:sqflite/sqflite.dart' as sqflite;
 ///
 /// To automatically run it, whenever a file changes, use
 /// flutter packages pub run build_runner watch
-part 'database.g.dart'; // the generated code will be there
+part '../database.g.dart'; // the generated code will be there
 
 @Database(version: 1, entities: [Journal])
 @TypeConverters([DateTimeConverter])

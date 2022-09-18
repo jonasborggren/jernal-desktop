@@ -5,7 +5,7 @@ class Journal {
   @PrimaryKey(autoGenerate: true)
   final int? id;
 
-  final String body;
+  var body = "";
   final String? title;
   final DateTime timestamp;
 
@@ -26,7 +26,7 @@ class Journal {
   factory Journal.empty() => Journal(
         id: null,
         title: null,
-        body: "empty",
+        body: "",
         timestamp: DateTime.now(),
       );
 
