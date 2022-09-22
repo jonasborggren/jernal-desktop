@@ -14,4 +14,7 @@ abstract class JournalDao {
 
   @update
   Future<void> updateJournal(Journal data);
+
+  @delete
+  Future<void> deleteJournal(Journal data);
 }

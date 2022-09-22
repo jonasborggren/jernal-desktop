@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jernal/data/utils/extensions.dart';
+import 'package:jernal/utils/extensions.dart';
 
 enum ConfirmationDialogType {
   deleteJournal,
@@ -12,33 +12,32 @@ class ConfirmationDialog extends StatelessWidget {
     required this.type,
     required this.dialogContext,
     required this.onConfirm,
-    required this.onCancel,
+    this.onCancel,
     this.onThirdAction,
   });
 
   final BuildContext dialogContext;
   final ConfirmationDialogType type;
   final Function() onConfirm;
-  final Function() onCancel;
+  final Function()? onCancel;
   final Function()? onThirdAction;
 
   @override
   Widget build(BuildContext context) {
-    String text = "Are you sure?";
-    String confirmText = "OK";
+    String text = context.l10n.areYouSure;
+    String confirmText = context.l10n.ok;
     String? thirdText;
     Color? confirmColor;
     switch (type) {
       case ConfirmationDialogType.deleteJournal:
-        text = "Are you sure you want to remove this journal?";
-        confirmText = "DELETE";
+        text = context.l10n.deleteJournalSingle;
+        confirmText = context.l10n.delete;
         confirmColor = context.colorScheme.error;
         break;
       case ConfirmationDialogType.deleteAllJournals:
-        text =
-            "Are you sure you want to remove all journals? This cannot be undone";
-        confirmText = "DELETE ALL";
-        thirdText = "EXPORT JOURNALS";
+        text = context.l10n.deleteJournalAll;
+        confirmText = context.l10n.deleteAll;
+        thirdText = context.l10n.preferencesExportJournals;
         confirmColor = context.colorScheme.error;
         break;
     }
@@ -69,9 +68,9 @@ class ConfirmationDialog extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    onCancel();
+                    onCancel?.call();
                   },
-                  child: const Text("CANCEL"),
+                  child: Text(context.l10n.cancel.toUpperCase()),
                 ),
                 if (onThirdAction != null && thirdText != null) ...{
                   const SizedBox(width: 16),
@@ -80,7 +79,7 @@ class ConfirmationDialog extends StatelessWidget {
                       Navigator.pop(context);
                       onThirdAction!();
                     },
-                    child: Text(thirdText),
+                    child: Text(thirdText.toUpperCase()),
                   ),
                 },
                 const SizedBox(width: 16),
@@ -92,7 +91,7 @@ class ConfirmationDialog extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: confirmColor,
                   ),
-                  child: Text(confirmText),
+                  child: Text(confirmText.toUpperCase()),
                 ),
               ],
             ),

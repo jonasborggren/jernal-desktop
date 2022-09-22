@@ -50,7 +50,17 @@ class JournalNotifier extends ChangeNotifier {
     if (newItems != items) {
       items = newItems;
     }
-    print("new journals: $items");
+    notifyListeners();
+  }
+
+  static Future deleteWith(BuildContext context) async {
+    await getProvider(context).delete();
+  }
+
+  Future delete() async {
+    final currentItem = items[currentIndex];
+    await dao.deleteJournal(currentItem);
+    await getJournals();
     notifyListeners();
   }
 

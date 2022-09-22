@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dao/database.dart';
+part of 'database.dart';
 
 // **************************************************************************
 // FloorGenerator
@@ -114,6 +114,17 @@ class _$JournalDao extends JournalDao {
                   'timestamp': _dateTimeConverter.encode(item.timestamp)
                 },
             changeListener),
+        _journalDeletionAdapter = DeletionAdapter(
+            database,
+            'Journal',
+            ['id'],
+            (Journal item) => <String, Object?>{
+                  'id': item.id,
+                  'body': item.body,
+                  'title': item.title,
+                  'timestamp': _dateTimeConverter.encode(item.timestamp)
+                },
+            changeListener),
         _journalUpdateAdapter = UpdateAdapter(
             database,
             'Journal',
@@ -135,6 +146,7 @@ class _$JournalDao extends JournalDao {
   final InsertionAdapter<Journal> _journalInsertionAdapter;
 
   final UpdateAdapter<Journal> _journalUpdateAdapter;
+  final DeletionAdapter<Journal> _journalDeletionAdapter;
 
   @override
   Future<List<Journal>> all() async {
@@ -167,6 +179,11 @@ class _$JournalDao extends JournalDao {
   @override
   Future<void> updateJournal(Journal data) async {
     await _journalUpdateAdapter.update(data, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> deleteJournal(Journal data) async {
+    await _journalDeletionAdapter.delete(data);
   }
 }
 

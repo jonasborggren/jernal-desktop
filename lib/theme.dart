@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   static final colorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: const Color.fromARGB(255, 91, 75, 200),
-    secondary: const Color.fromARGB(255, 194, 65, 203),
-    tertiary: const Color.fromARGB(255, 230, 167, 98),
+    tertiary: const Color.fromARGB(255, 91, 75, 200),
+    secondary: const Color.fromARGB(255, 0, 0, 0),
+    primary: const Color.fromARGB(255, 68, 120, 227),
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     error: Colors.red,
@@ -30,9 +30,9 @@ class AppTheme {
   static final colorSchemeDark = ColorScheme(
     brightness: Brightness.dark,
     tertiary: const Color.fromARGB(255, 91, 75, 200),
-    secondary: const Color.fromARGB(255, 194, 65, 203),
-    primary: const Color.fromARGB(255, 230, 167, 98),
-    onPrimary: Colors.black,
+    secondary: const Color.fromARGB(255, 0, 0, 0),
+    primary: const Color.fromARGB(255, 68, 120, 227),
+    onPrimary: Colors.white,
     onSecondary: Colors.white,
     onTertiary: Colors.white,
     error: const Color.fromARGB(255, 201, 98, 91),
@@ -138,6 +138,8 @@ class AppTheme {
         listTileTheme: listTileTheme(colorScheme),
         textTheme: textTheme(colorScheme),
         buttonTheme: const ButtonThemeData(),
+        progressIndicatorTheme:
+            ProgressIndicatorThemeData(color: colorScheme.primary),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.resolveWith((states) {

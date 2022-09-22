@@ -20,7 +20,6 @@ class PageWrapper extends StatelessWidget {
         padding: EdgeInsets.only(
           top: 28,
           left: ignorePadding ? 0.0 : 16,
-          right: ignorePadding ? 0.0 : 16,
           bottom: ignorePadding ? 0.0 : 16,
         ),
         child: child,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jernal/data/preferences.dart';
+import 'package:jernal/widgets/preferences/preferences.dart';
 
 class Routes {
   static Route get preferences => PageRouteBuilder(

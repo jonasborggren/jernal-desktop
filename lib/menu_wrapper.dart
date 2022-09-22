@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:jernal/data/notifiers/focus_mode.dart';
 import 'package:jernal/data/notifiers/journals.dart';
 import 'package:jernal/data/notifiers/text_size.dart';
-import 'package:jernal/data/routes/routes_main.dart';
+import 'package:jernal/routes/routes_main.dart';
+import 'package:jernal/utils/extensions.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class MenuWrapper extends StatelessWidget {
                 PlatformMenuItemGroup(
                   members: <MenuItem>[
                     PlatformMenuItem(
-                      label: 'About',
+                      label: context.l10n.menuAbout,
                       onSelected: () {
                         PackageInfo.fromPlatform().then((packageInfo) {
                           String appName = packageInfo.appName;
@@ -44,15 +45,17 @@ class MenuWrapper extends StatelessWidget {
                           showAboutDialog(
                             context: context,
                             applicationName: appName,
-                            applicationVersion:
-                                "$version - Build: $buildNumber",
+                            applicationVersion: context.l10n.aboutVersion(
+                              version,
+                              buildNumber,
+                            ),
                             applicationIcon: const Icon(Icons.reddit),
                           );
                         });
                       },
                     ),
                     PlatformMenuItem(
-                      label: 'Save Journal',
+                      label: context.l10n.menuSave,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.keyS,
                         meta: true,
@@ -63,7 +66,7 @@ class MenuWrapper extends StatelessWidget {
                       },
                     ),
                     PlatformMenuItem(
-                      label: 'Toggle focus mode',
+                      label: context.l10n.menuToggleFocusMode,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.keyF,
                         meta: true,
@@ -79,7 +82,7 @@ class MenuWrapper extends StatelessWidget {
                 PlatformMenuItemGroup(
                   members: <MenuItem>[
                     PlatformMenuItem(
-                      label: 'Increase text size',
+                      label: context.l10n.menuTextSizeIncrease,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.add,
                         meta: true,
@@ -90,7 +93,7 @@ class MenuWrapper extends StatelessWidget {
                       },
                     ),
                     PlatformMenuItem(
-                      label: 'Decrease text size',
+                      label: context.l10n.menuTextSizeDecrease,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.minus,
                         meta: true,
@@ -101,7 +104,7 @@ class MenuWrapper extends StatelessWidget {
                       },
                     ),
                     PlatformMenuItem(
-                      label: 'Reset text size',
+                      label: context.l10n.menuTextSizeReset,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.digit0,
                         meta: true,
@@ -116,7 +119,7 @@ class MenuWrapper extends StatelessWidget {
                 PlatformMenuItemGroup(
                   members: <MenuItem>[
                     PlatformMenuItem(
-                      label: 'Older journal',
+                      label: context.l10n.menuStepOlder,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.arrowRight,
                         meta: true,
@@ -128,7 +131,7 @@ class MenuWrapper extends StatelessWidget {
                           : null,
                     ),
                     PlatformMenuItem(
-                      label: 'Newer journal',
+                      label: context.l10n.menuStepNewer,
                       shortcut: const SingleActivator(
                         LogicalKeyboardKey.arrowLeft,
                         meta: true,
@@ -142,7 +145,7 @@ class MenuWrapper extends StatelessWidget {
                   ],
                 ),
                 PlatformMenuItem(
-                  label: 'Preferences',
+                  label: context.l10n.menuPreferences,
                   shortcut: const SingleActivator(
                     LogicalKeyboardKey.comma,
                     meta: true,

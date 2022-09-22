@@ -1,0 +1,86 @@
+{
+  "helloWorld": "Hello World!",
+
+  "areYouSure": "Are you sure?",
+  "cancel": "Cancel",
+  "ok": "Ok",
+  "delete": "Delete",
+  "deleteAll": "Delete all",
+  "skip": "Skip",
+  "next": "Next",
+  "save": "Save",
+  "experimental": "Experimental",
+  "comingSoon": "Coming soon",
+
+  "textFieldHint": "Start writing about your day..",
+
+  "onboardingFirstTitle": "Welcome!",
+  "onboardingFirstMessage": "I'm very glad you're here. I'll show you a few tips and tricks that are very useful in this app!",
+  "onboardingFirstAction": "Let's go!",
+  "onboardingSecondTitle": "First off\nKeyboard binds!",
+  "onboardingThirdTitle": "Here you see the history of your journals!\nThey stack horizontally as the days progress.",
+  "onboardingFourthTitle": "You're done!",
+  "onboardingFourthMessage": "Very nice. Let's get you writing!",
+  "onboardingFourthAction": "Start writing!",
+
+  "bindsPreferences": "Preferences",
+  "bindsPreferencesKey": "⌘,",
+  "bindsQuickSave": "Quick save",
+  "bindsQuickSaveKey": "⌘S",
+  "bindsFocusToggle": "Focus mode toggle",
+  "bindsFocusToggleKey": "⇧⌘F",
+  "bindsTextSizeIncrease": "Increase text size",
+  "bindsTextSizeIncreaseKey": "⌘+",
+  "bindsTextSizeDecrease": "Decrease text size",
+  "bindsTextSizeDecreaseKey": "⌘-",
+  "bindsJournalNewer": "Move to newer journal",
+  "bindsJournalNewerKey": "⌘←",
+  "bindsJournalOlder": "Move to older journal",
+  "bindsJournalOlderKey": "⌘→",
+
+  "deleteJournalSingle": "Are you sure you want to remove this journal?",
+  "deleteJournalAll": "Are you sure you want to remove all journals? This cannot be undone",
+
+  "menuAbout": "About",
+  "menuSave": "Save Journal",
+  "menuToggleFocusMode": "Toggle focus mode",
+  "menuTextSizeIncrease": "Increase text size",
+  "menuTextSizeDecrease": "Decrease text size",
+  "menuTextSizeReset": "Reset text size",
+  "menuStepOlder": "Older journal",
+  "menuStepNewer": "Newer journal",
+  "menuPreferences": "Preferences",
+
+  "preferencesDonate": "Donate",
+  "preferencesDonateDescription": "Help me develop this app further!",
+  "preferencesProUnlock": "Unlock PRO features",
+  "preferencesProUnlockDescription": "Buy the PRO version of this app to unlock all kinds of cool features",
+  "preferencesOnboardingReset": "Walkthrough replay",
+  "preferencesOnboardingResetDescription": "See the onboarding steps again, maybe you missed something!",
+  "preferencesOnboardingResetSuccess": "Successfully reset onboarding. Restart the app to run the onboarding again",
+  "preferencesTextSizeReset": "Set default text size",
+  "preferencesTextSizeResetDescription": "Set a more comfortable text size",
+  "preferencesTextSizeResetSuccess": "Successfully reset text size",
+  "preferencesTextAnimations": "Text animations",
+  "preferencesTextAnimationsDescription": "Show animating text and indicators when writing",
+  "preferencesTextAnimationsSuccessDisabled": "Text animations disabled",
+  "preferencesTextAnimationsSuccessEnabled": "Text animations enabled",
+  "preferencesExportJournals": "Export journals",
+  "preferencesExportJournalsDescription": "Export all your journals into text files to store for later",
+  "preferencesDeleteAllJournals": "Delete all journals",
+  "preferencesDeleteAllJournalsDescription": "Delete all your journals. Be careful, this cannot be undone!",
+
+  
+  "aboutVersion": "{version} - Build: {buildNumber}",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "buildNumber": {
+        "type": "String"
+      }
+    }
+  }
+
+}
