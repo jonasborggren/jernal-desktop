@@ -33,7 +33,9 @@ class AppDelegate: FlutterAppDelegate {
     
     @IBAction func statusBarButtonClicked(_ sender: NSStatusBarButton) {
         if let menu = self.status.menu {
-            status?.popUpMenu(menu)
+            status?.menu = menu
+            status?.button?.performClick(nil)
+            status?.menu = nil
         }
     }
     

@@ -29,12 +29,12 @@ class MenuWrapper extends StatelessWidget {
     return Consumer<JournalNotifier>(
       builder: (context, journals, _) {
         return PlatformMenuBar(
-          menus: <MenuItem>[
+          menus: [
             PlatformMenu(
               label: 'Jernal',
-              menus: <MenuItem>[
+              menus: <PlatformMenuItem>[
                 PlatformMenuItemGroup(
-                  members: <MenuItem>[
+                  members: [
                     PlatformMenuItem(
                       label: context.l10n.menuAbout,
                       onSelected: () {
@@ -80,7 +80,7 @@ class MenuWrapper extends StatelessWidget {
                   ],
                 ),
                 PlatformMenuItemGroup(
-                  members: <MenuItem>[
+                  members: [
                     PlatformMenuItem(
                       label: context.l10n.menuTextSizeIncrease,
                       shortcut: const SingleActivator(
@@ -117,7 +117,7 @@ class MenuWrapper extends StatelessWidget {
                   ],
                 ),
                 PlatformMenuItemGroup(
-                  members: <MenuItem>[
+                  members: [
                     PlatformMenuItem(
                       label: context.l10n.menuStepOlder,
                       shortcut: const SingleActivator(
