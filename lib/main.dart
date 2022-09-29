@@ -55,7 +55,6 @@ class JernalApp extends StatelessWidget {
         color: Colors.transparent,
         theme: AppTheme.theme(AppTheme.colorScheme),
         darkTheme: AppTheme.theme(AppTheme.colorSchemeDark),
-        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
