@@ -7,10 +7,10 @@ extension BuildContextExtensions on BuildContext {
   ColorScheme get colorScheme => theme.colorScheme;
 
   /// Localizations
-  AppLocalizations get l10n => AppLocalizations.of(this);
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
 }
 
 extension StateExtensions on State<StatefulWidget> {
   /// Localizations
-  AppLocalizations get l10n => AppLocalizations.of(context);
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
 }
