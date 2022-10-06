@@ -32,7 +32,7 @@ class MenuWrapper extends StatelessWidget {
           menus: [
             PlatformMenu(
               label: 'Jernal',
-              menus: <PlatformMenuItem>[
+              menus: [
                 PlatformMenuItemGroup(
                   members: [
                     PlatformMenuItem(
