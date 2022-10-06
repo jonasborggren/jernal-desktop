@@ -11,5 +11,8 @@
 - [ ] Linux support
 
 - [ ] Tests
-- [ ] File/cloud storage
+
+- [ ] Reminders
 - [ ] Finalize design
+
+- [ ] File/cloud storage
