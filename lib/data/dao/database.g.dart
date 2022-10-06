@@ -114,7 +114,7 @@ class _$JournalDao extends JournalDao {
                   'timestamp': _dateTimeConverter.encode(item.timestamp)
                 },
             changeListener),
-        _journalDeletionAdapter = DeletionAdapter(
+        _journalUpdateAdapter = UpdateAdapter(
             database,
             'Journal',
             ['id'],
@@ -125,7 +125,7 @@ class _$JournalDao extends JournalDao {
                   'timestamp': _dateTimeConverter.encode(item.timestamp)
                 },
             changeListener),
-        _journalUpdateAdapter = UpdateAdapter(
+        _journalDeletionAdapter = DeletionAdapter(
             database,
             'Journal',
             ['id'],
@@ -146,6 +146,7 @@ class _$JournalDao extends JournalDao {
   final InsertionAdapter<Journal> _journalInsertionAdapter;
 
   final UpdateAdapter<Journal> _journalUpdateAdapter;
+
   final DeletionAdapter<Journal> _journalDeletionAdapter;
 
   @override
