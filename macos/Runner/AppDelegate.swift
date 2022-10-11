@@ -15,6 +15,7 @@ class AppDelegate: FlutterAppDelegate {
     override func applicationDidFinishLaunching(_ notification: Notification) {
         status = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         status?.button?.title = "Jernal"
+        status?.button?.image = NSImage(named:NSImage.Name("StatusBarIcon"))
         status?.button?.target = self
         status?.button?.action = #selector(self.statusBarButtonClicked(_:))
         //status?.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])

@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   static final colorScheme = ColorScheme(
     brightness: Brightness.light,
-    tertiary: const Color.fromARGB(255, 91, 75, 200),
+    tertiary: const Color(0xFF17C08F),
     secondary: const Color.fromARGB(255, 0, 0, 0),
-    primary: const Color.fromARGB(255, 68, 120, 227),
+    primary: const Color(0xFF193D61),
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     error: Colors.red,
@@ -29,9 +29,9 @@ class AppTheme {
 
   static final colorSchemeDark = ColorScheme(
     brightness: Brightness.dark,
-    tertiary: const Color.fromARGB(255, 91, 75, 200),
+    tertiary: const Color(0xFF17C08F),
     secondary: const Color.fromARGB(255, 0, 0, 0),
-    primary: const Color.fromARGB(255, 68, 120, 227),
+    primary: const Color(0xFF193D61),
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     onTertiary: Colors.white,
