@@ -84,7 +84,7 @@ class _AchievementsTickerState extends State<AchievementsTicker>
                         alignment: Alignment.center,
                         child: Text(
                           level.toString(),
-                          style: context.theme.textTheme.caption,
+                          style: context.theme.textTheme.bodySmall,
                         ),
                       ),
                     ],

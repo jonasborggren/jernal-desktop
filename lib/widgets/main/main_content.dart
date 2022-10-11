@@ -81,11 +81,12 @@ class _MainContentState extends State<MainContent>
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size.zero,
+                            backgroundColor: context.colorScheme.secondary,
+                            foregroundColor: context.colorScheme.onSecondary,
                             padding: const EdgeInsets.only(
                               top: 12,
                               bottom: 12,
                             ),
-                            backgroundColor: context.colorScheme.error,
                           ),
                           onPressed: currentIndex != 0 ||
                                   textEditingController.text.isNotEmpty == true
@@ -99,7 +100,7 @@ class _MainContentState extends State<MainContent>
                             child: Icon(
                               Icons.delete_outline_rounded,
                               size: 20,
-                              color: context.colorScheme.onError,
+                              color: context.colorScheme.error,
                             ),
                           ),
                         ),
