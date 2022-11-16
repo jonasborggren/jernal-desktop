@@ -27,14 +27,13 @@ class _CustomTextFieldState extends State<CustomTextField>
 
   @override
   Widget build(BuildContext context) {
-    final originalTextSize = context.theme.textTheme.bodyMedium!.fontSize!;
     return Consumer<TextSizeNotifier>(
       builder: (context, notifier, _) {
         return Container(
           margin: EdgeInsets.only(
-            left: 16.0 * animation.value,
-            top: 80.0 * animation.value,
-            right: 16.0 * animation.value,
+            //left: 16.0 * animation.value,
+            //top: 28.0 * animation.value,
+            //right: 16.0 * animation.value,
             bottom: 64.0 * animation.value,
           ),
           width: double.infinity,
@@ -55,9 +54,9 @@ class _CustomTextFieldState extends State<CustomTextField>
             scrollController: scrollController,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.only(
-                top: 16.0 + (24.0 * (1.0 - animation.value)),
-                left: 16.0 + (1.0 - animation.value),
-                right: 16.0 + (1.0 - animation.value),
+                top: 40.0,
+                left: 16.0,
+                right: 16.0,
                 bottom: 16.0 + (56.0 * (1.0 - animation.value)),
               ),
               border: InputBorder.none,
@@ -74,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField>
             textAlign: TextAlign.start,
             textAlignVertical: TextAlignVertical.top,
             style: context.theme.textTheme.bodyMedium!.copyWith(
-              fontSize: originalTextSize * notifier.textSizeMultiplier,
+              fontSize: notifier.textSize,
             ),
             onChanged: (value) {
               widget.onChanged(value);
@@ -93,6 +92,7 @@ class _CustomTextFieldState extends State<CustomTextField>
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
+
     animation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -102,6 +102,7 @@ class _CustomTextFieldState extends State<CustomTextField>
     });
 
     final notifier = FocusModeNotifier.getProvider(context);
+    // Listen to focus mode changes
     notifier.addListener(() {
       if (notifier.isFocusModeEnabled) {
         animationController.reverse();
@@ -109,6 +110,14 @@ class _CustomTextFieldState extends State<CustomTextField>
         animationController.forward();
       }
     });
+    // Set default focus mode state
+    if (notifier.isFocusModeEnabled) {
+      animationController.reverse(from: 0.0);
+    } else {
+      animationController.forward(from: 1.0);
+    }
+
+    // Listen to text changes
     widget.textEditingController.addListener(() {
       setState(() {});
     });

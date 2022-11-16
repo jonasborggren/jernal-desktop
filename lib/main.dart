@@ -3,11 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jernal/data/dao/dao_journal.dart';
 import 'package:jernal/data/dao/database.dart';
+import 'package:jernal/data/notifiers/theme_mode.dart';
 import 'package:jernal/main_provider.dart';
 import 'package:jernal/menu_wrapper.dart';
 import 'package:jernal/theme.dart';
+import 'package:jernal/utils/method_channel.dart';
 import 'package:jernal/widgets/main/main_content.dart';
 import 'package:jernal/widgets/preferences/preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -37,28 +40,35 @@ class JernalApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainProvider(
+      sharedPreferences: prefs,
       journalDao: journalDao,
-      child: MaterialApp(
-        color: Colors.transparent,
-        theme: AppTheme.theme(AppTheme.colorScheme),
-        darkTheme: AppTheme.theme(AppTheme.colorSchemeDark),
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/",
-        routes: {
-          '/': (context) => const MenuWrapper(
-                child: MainContent(),
-              ),
-          '/preferences': (context) => const Preferences(),
+      child: Consumer<ThemeModeNotifier>(
+        builder: (context, notifier, _) {
+          methodChannelHandler.setThemeMode(notifier.mode);
+          return MaterialApp(
+            color: Colors.transparent,
+            theme: AppTheme.theme(AppTheme.colorScheme),
+            darkTheme: AppTheme.theme(AppTheme.colorSchemeDark),
+            themeMode: notifier.mode,
+            debugShowCheckedModeBanner: false,
+            initialRoute: "/",
+            routes: {
+              '/': (context) => const MenuWrapper(
+                    child: MainContent(),
+                  ),
+              '/preferences': (context) => const Preferences(),
+            },
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en', ''),
+            ],
+          );
         },
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''),
-        ],
       ),
     );
   }

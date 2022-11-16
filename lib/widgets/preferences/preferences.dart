@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jernal/data/notifiers/onboarding.dart';
 import 'package:jernal/data/notifiers/text_size.dart';
+import 'package:jernal/data/notifiers/theme_mode.dart';
 import 'package:jernal/utils/extensions.dart';
 import 'package:jernal/widgets/common/dialog_confirm.dart';
 import 'package:jernal/widgets/common/page_wrapper.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences extends StatefulWidget {
@@ -19,7 +21,7 @@ class _PreferencesState extends State<Preferences> {
   @override
   Widget build(BuildContext context) {
     final sharedPreferences = this.sharedPreferences;
-    final titleStyle = context.theme.textTheme.button!.copyWith(
+    final titleStyle = context.theme.textTheme.labelLarge!.copyWith(
       fontSize: 16,
     );
     return PageWrapper(
@@ -43,7 +45,6 @@ class _PreferencesState extends State<Preferences> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 32),
                       ListTile(
                         title: Row(
                           children: [
@@ -95,6 +96,21 @@ class _PreferencesState extends State<Preferences> {
                         trailing: const Icon(Icons.help_outline_rounded),
                       ),
                       const Divider(),
+                      Consumer<ThemeModeNotifier>(
+                        builder: (context, themeMode, _) {
+                          return ListTile(
+                            title: Text(
+                              l10n.preferencesTheme,
+                              style: titleStyle,
+                            ),
+                            dense: true,
+                            onTap: () {
+                              themeMode.next();
+                            },
+                            trailing: Text(themeMode.mode.readable(context)),
+                          );
+                        },
+                      ),
                       ListTile(
                         title: Row(
                           children: [

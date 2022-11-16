@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jernal/data/notifiers/focus_mode.dart';
 import 'package:jernal/data/notifiers/journals.dart';
+import 'package:jernal/data/notifiers/messenger.dart';
 import 'package:jernal/data/notifiers/text_size.dart';
+import 'package:jernal/data/notifiers/theme_mode.dart';
 import 'package:jernal/routes/routes_main.dart';
 import 'package:jernal/utils/extensions.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -26,8 +28,23 @@ class MenuWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<JournalNotifier>(
-      builder: (context, journals, _) {
+    return Consumer5<JournalNotifier, ThemeModeNotifier, MessageNotifier,
+        TextSizeNotifier, FocusModeNotifier>(
+      builder:
+          (context, journals, themeMode, messenger, textSize, focusMode, _) {
+        final String themeModeTitle;
+        switch (themeMode.mode) {
+          case ThemeMode.system:
+            themeModeTitle = context.l10n.menuThemeModeAuto;
+            break;
+          case ThemeMode.dark:
+            themeModeTitle = context.l10n.menuThemeModeDark;
+            break;
+          case ThemeMode.light:
+            themeModeTitle = context.l10n.menuThemeModeLight;
+            break;
+        }
+
         return PlatformMenuBar(
           menus: [
             PlatformMenu(
@@ -61,8 +78,7 @@ class MenuWrapper extends StatelessWidget {
                         meta: true,
                       ),
                       onSelected: () {
-                        Provider.of<JournalNotifier>(context, listen: false)
-                            .save();
+                        journals.save();
                       },
                     ),
                     PlatformMenuItem(
@@ -73,8 +89,25 @@ class MenuWrapper extends StatelessWidget {
                         shift: true,
                       ),
                       onSelected: () {
-                        Provider.of<FocusModeNotifier>(context, listen: false)
-                            .toggle();
+                        focusMode.toggle();
+                        messenger.show(
+                          title: context.l10n.messagesFocusModeChanged,
+                          summary: focusMode.readable(context),
+                        );
+                      },
+                    ),
+                    PlatformMenuItem(
+                      label: themeModeTitle,
+                      shortcut: const SingleActivator(
+                        LogicalKeyboardKey.keyT,
+                        meta: true,
+                      ),
+                      onSelected: () {
+                        themeMode.next();
+                        messenger.show(
+                          title: context.l10n.messagesThemeChanged,
+                          summary: themeMode.readable(context),
+                        );
                       },
                     ),
                   ],
@@ -88,8 +121,11 @@ class MenuWrapper extends StatelessWidget {
                         meta: true,
                       ),
                       onSelected: () {
-                        Provider.of<TextSizeNotifier>(context, listen: false)
-                            .increase();
+                        textSize.increase();
+                        messenger.show(
+                          title: context.l10n.messagesTextSizeChanged,
+                          summary: textSize.readableSize(context),
+                        );
                       },
                     ),
                     PlatformMenuItem(
@@ -99,8 +135,11 @@ class MenuWrapper extends StatelessWidget {
                         meta: true,
                       ),
                       onSelected: () {
-                        Provider.of<TextSizeNotifier>(context, listen: false)
-                            .decrease();
+                        textSize.decrease();
+                        messenger.show(
+                          title: context.l10n.messagesTextSizeChanged,
+                          summary: textSize.readableSize(context),
+                        );
                       },
                     ),
                     PlatformMenuItem(
@@ -110,8 +149,10 @@ class MenuWrapper extends StatelessWidget {
                         meta: true,
                       ),
                       onSelected: () {
-                        Provider.of<TextSizeNotifier>(context, listen: false)
-                            .reset();
+                        textSize.reset();
+                        messenger.show(
+                          title: context.l10n.messagesTextSizeReset,
+                        );
                       },
                     ),
                   ],
@@ -121,7 +162,7 @@ class MenuWrapper extends StatelessWidget {
                     PlatformMenuItem(
                       label: context.l10n.menuStepOlder,
                       shortcut: const SingleActivator(
-                        LogicalKeyboardKey.arrowRight,
+                        LogicalKeyboardKey.arrowLeft,
                         meta: true,
                       ),
                       onSelected: journals.canGoPrevious
@@ -133,7 +174,7 @@ class MenuWrapper extends StatelessWidget {
                     PlatformMenuItem(
                       label: context.l10n.menuStepNewer,
                       shortcut: const SingleActivator(
-                        LogicalKeyboardKey.arrowLeft,
+                        LogicalKeyboardKey.arrowRight,
                         meta: true,
                       ),
                       onSelected: journals.canGoNext

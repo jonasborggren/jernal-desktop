@@ -3,6 +3,7 @@ import 'package:jernal/widgets/preferences/preferences.dart';
 
 class Routes {
   static Route get preferences => PageRouteBuilder(
+        settings: const RouteSettings(name: "preferences"),
         pageBuilder: (context, animation, secondaryAnimation) =>
             const Preferences(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {

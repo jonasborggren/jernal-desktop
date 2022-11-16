@@ -4,6 +4,7 @@
   "areYouSure": "Are you sure?",
   "cancel": "Cancel",
   "ok": "Ok",
+  "close": "Close",
   "delete": "Delete",
   "deleteAll": "Delete all",
   "skip": "Skip",
@@ -13,6 +14,7 @@
   "comingSoon": "Coming soon",
 
   "textFieldHint": "Start writing about your day..",
+  "currentlyWriting": "Currently writing..",
 
   "onboardingFirstTitle": "Welcome!",
   "onboardingFirstMessage": "I'm very glad you're here. I'll show you a few tips and tricks that are very useful in this app!",
@@ -50,6 +52,16 @@
   "menuStepOlder": "Older journal",
   "menuStepNewer": "Newer journal",
   "menuPreferences": "Preferences",
+  "menuThemeModeAuto": "Theme: Auto",
+  "menuThemeModeLight": "Theme: Light",
+  "menuThemeModeDark": "Theme: Dark",
+
+  "messagesThemeChanged": "Theme",
+  "messagesTextSizeChanged": "Text size",
+  "messagesTextSizeReset": "Reset text size",
+  "messagesFocusModeChanged": "Focus mode",
+  "messagesFocusModeDisabled": "Disabled",
+  "messagesFocusModeEnabled": "Enabled",
 
   "preferencesDonate": "Donate",
   "preferencesDonateDescription": "Help me develop this app further!",
@@ -69,6 +81,10 @@
   "preferencesExportJournalsDescription": "Export all your journals into text files to store for later",
   "preferencesDeleteAllJournals": "Delete all journals",
   "preferencesDeleteAllJournalsDescription": "Delete all your journals. Be careful, this cannot be undone!",
+  "preferencesTheme": "Theme",
+  "preferencesThemeAuto": "Automatic",
+  "preferencesThemeDark": "Dark",
+  "preferencesThemeLight": "Light",
 
   
   "aboutVersion": "{version} - Build: {buildNumber}",
