@@ -41,6 +41,14 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: build/macos/Build/Products/Release/app/Jernal-${{github.ref_name}}-macos.zip
+      - name: Install app-store-connect (codemagic CLI)
+        run: pip3 install codemagic-cli-tools
+      - name: Set variables from secrets
+        run: |
+          export APP_STORE_CONNECT_ISSUER_ID=${{ secrets.APPSTORE_ISSUER_ID }} \
+          export APP_STORE_CONNECT_KEY_IDENTIFIER=${{ secrets.APPSTORE_API_KEY_ID }} \
+          export APP_STORE_CONNECT_PRIVATE_KEY=${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+      
 
   #build-and-release-linux:
   #  runs-on: ubuntu-latest
