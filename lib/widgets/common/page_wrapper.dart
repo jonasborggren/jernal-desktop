@@ -18,7 +18,6 @@ class PageWrapper extends StatelessWidget {
       backgroundColor: backgroundColor ?? Colors.transparent,
       body: Container(
         padding: EdgeInsets.only(
-          top: 28,
           left: ignorePadding ? 0.0 : 16,
           bottom: ignorePadding ? 0.0 : 16,
         ),

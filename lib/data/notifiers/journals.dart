@@ -12,6 +12,8 @@ class JournalNotifier extends ChangeNotifier {
   bool get canGoPrevious => currentIndex < items.length - 1;
   bool get canGoNext => currentIndex > 0;
 
+  int get number => items.length - currentIndex;
+
   late JournalDao dao;
 
   static JournalNotifier getProvider(BuildContext context) =>
@@ -39,18 +41,20 @@ class JournalNotifier extends ChangeNotifier {
   static JournalNotifier init(JournalDao journalDao) {
     JournalNotifier notifier = JournalNotifier();
     notifier.dao = journalDao;
-    notifier.getJournals();
+    notifier.getJournals(true);
     return notifier;
   }
 
-  Future getJournals() async {
+  Future getJournals(bool notify) async {
     final value = await dao.all();
     final newItems = [Journal.empty()];
     newItems.addAll(value.reversed);
     if (newItems != items) {
       items = newItems;
     }
-    notifyListeners();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   static Future deleteWith(BuildContext context) async {
@@ -60,7 +64,10 @@ class JournalNotifier extends ChangeNotifier {
   Future delete() async {
     final currentItem = items[currentIndex];
     await dao.deleteJournal(currentItem);
-    await getJournals();
+    await getJournals(false);
+    if (currentIndex >= items.length) {
+      currentIndex = items.length - 1;
+    }
     notifyListeners();
   }
 
@@ -91,7 +98,16 @@ class JournalNotifier extends ChangeNotifier {
 
   Future insert(String text) async {
     await dao.insertJournal(Journal.fromBody(text));
-    await getJournals();
-    notifyListeners();
+    await getJournals(true);
+  }
+
+  bool goToJournal(Journal journal) {
+    final index = items.indexOf(journal);
+    if (index != -1) {
+      currentIndex = index;
+      notifyListeners();
+      return true;
+    }
+    return false;
   }
 }

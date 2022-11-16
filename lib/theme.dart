@@ -13,7 +13,7 @@ class AppTheme {
     onError: Colors.white,
     errorContainer: Colors.red,
     onErrorContainer: Colors.white,
-    background: const Color.fromARGB(255, 238, 237, 245),
+    background: const Color.fromARGB(255, 220, 220, 220),
     onBackground: Colors.black,
     surface: Colors.white,
     onSurface: Colors.black,
