@@ -1,5 +1,5 @@
 <img align="left" width="80" height="80" src="https://user-images.githubusercontent.com/5494102/195176356-13a7ba00-0952-424f-9e4b-0c6b2e0a6f8c.png" alt="Resume application project app icon">
-<h1>Jernal for desktop</h1>
+<h1>Jernal</h1>
 
 ![Focus mode disabled](https://user-images.githubusercontent.com/5494102/202308152-6b078a30-5262-4db3-8611-37906e11d150.png#gh-light-mode-only)
 ![Focus mode enabled](https://user-images.githubusercontent.com/5494102/202308156-09a7dfea-f81a-42b3-a51c-2b95f3ea8e6a.png#gh-light-mode-only)
