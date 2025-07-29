@@ -2,12 +2,16 @@ import Cocoa
 import FlutterMacOS
 import SwiftUI
 
-@NSApplicationMain
+@main
 class AppDelegate: FlutterAppDelegate {
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         NSApp.setActivationPolicy(.accessory)
         return false
+    }
+
+    override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        return true
     }
     
     var status: NSStatusItem!

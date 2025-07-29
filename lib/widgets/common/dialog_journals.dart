@@ -34,8 +34,7 @@ class _JournalsDialogState extends State<JournalsDialog> {
                     itemBuilder: (context, index) {
                       final journal = journals.items.reversed.toList()[index];
                       bool current = journals.number - 1 == index;
-                      final color = context.colorScheme.onBackground
-                          .withOpacity(current ? 1.0 : 0.5);
+                      final color = context.colorScheme.onSurface.withOpacity(current ? 1.0 : 0.5);
                       return ListTile(
                         key: GlobalObjectKey(journal),
                         leading: Text(

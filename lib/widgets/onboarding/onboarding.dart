@@ -11,8 +11,7 @@ class Onboarding extends StatefulWidget {
   State<Onboarding> createState() => _OnboardingState();
 }
 
-class _OnboardingState extends State<Onboarding>
-    with SingleTickerProviderStateMixin {
+class _OnboardingState extends State<Onboarding> with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation animation;
 
@@ -35,13 +34,13 @@ class _OnboardingState extends State<Onboarding>
               children: [
                 Text(
                   l10n.onboardingFirstTitle,
-                  style: context.theme.textTheme.headline1,
+                  style: context.theme.textTheme.headlineLarge,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   l10n.onboardingFirstMessage,
-                  style: context.theme.textTheme.headline5,
+                  style: context.theme.textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -57,8 +56,7 @@ class _OnboardingState extends State<Onboarding>
                   child: Text(
                     l10n.skip,
                     style: context.theme.textTheme.bodySmall!.copyWith(
-                      color: context.theme.textTheme.bodySmall!.color!
-                          .withOpacity(0.4),
+                      color: context.theme.textTheme.bodySmall!.color!.withOpacity(0.4),
                     ),
                   ),
                   onTap: () {
@@ -82,7 +80,7 @@ class _OnboardingState extends State<Onboarding>
               children: [
                 Text(
                   l10n.onboardingSecondTitle,
-                  style: context.theme.textTheme.headline5,
+                  style: context.theme.textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -156,8 +154,7 @@ class _OnboardingState extends State<Onboarding>
                         child: Text(
                           l10n.skip,
                           style: context.theme.textTheme.bodySmall!.copyWith(
-                            color: context.theme.textTheme.bodySmall!.color!
-                                .withOpacity(0.4),
+                            color: context.theme.textTheme.bodySmall!.color!.withOpacity(0.4),
                           ),
                         ),
                         onTap: () {
@@ -225,11 +222,8 @@ class _OnboardingState extends State<Onboarding>
                                 hoverColor: Colors.transparent,
                                 child: Text(
                                   l10n.skip,
-                                  style: context.theme.textTheme.bodySmall!
-                                      .copyWith(
-                                    color: context
-                                        .theme.textTheme.bodySmall!.color!
-                                        .withOpacity(0.4),
+                                  style: context.theme.textTheme.bodySmall!.copyWith(
+                                    color: context.theme.textTheme.bodySmall!.color!.withOpacity(0.4),
                                   ),
                                 ),
                                 onTap: () {
@@ -258,13 +252,13 @@ class _OnboardingState extends State<Onboarding>
               children: [
                 Text(
                   l10n.onboardingFourthTitle,
-                  style: context.theme.textTheme.headline1,
+                  style: context.theme.textTheme.headlineLarge,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   l10n.onboardingFourthMessage,
-                  style: context.theme.textTheme.headline5,
+                  style: context.theme.textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),

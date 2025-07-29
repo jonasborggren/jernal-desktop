@@ -25,7 +25,7 @@ class _PreferencesState extends State<Preferences> {
       fontSize: 16,
     );
     return PageWrapper(
-      backgroundColor: context.colorScheme.background,
+      backgroundColor: context.colorScheme.surface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,15 +80,13 @@ class _PreferencesState extends State<Preferences> {
                           l10n.preferencesOnboardingReset,
                           style: titleStyle,
                         ),
-                        subtitle:
-                            Text(l10n.preferencesOnboardingResetDescription),
+                        subtitle: Text(l10n.preferencesOnboardingResetDescription),
                         dense: true,
                         onTap: () {
                           OnboardingNotifier.resetWith(context).then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
-                                    l10n.preferencesOnboardingResetSuccess),
+                                content: Text(l10n.preferencesOnboardingResetSuccess),
                               ),
                             );
                           });
@@ -121,23 +119,17 @@ class _PreferencesState extends State<Preferences> {
                             const Experimental()
                           ],
                         ),
-                        subtitle:
-                            Text(l10n.preferencesTextAnimationsDescription),
+                        subtitle: Text(l10n.preferencesTextAnimationsDescription),
                         dense: true,
                         onTap: () async {
-                          final value = sharedPreferences
-                              .getBool("prefs_animations_text");
+                          final value = sharedPreferences.getBool("prefs_animations_text");
                           String message;
                           if (value == null || value == true) {
-                            sharedPreferences.setBool(
-                                "prefs_animations_text", false);
-                            message =
-                                l10n.preferencesTextAnimationsSuccessDisabled;
+                            sharedPreferences.setBool("prefs_animations_text", false);
+                            message = l10n.preferencesTextAnimationsSuccessDisabled;
                           } else {
-                            sharedPreferences.setBool(
-                                "prefs_animations_text", true);
-                            message =
-                                l10n.preferencesTextAnimationsSuccessEnabled;
+                            sharedPreferences.setBool("prefs_animations_text", true);
+                            message = l10n.preferencesTextAnimationsSuccessEnabled;
                           }
                           setState(() {});
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -147,8 +139,7 @@ class _PreferencesState extends State<Preferences> {
                           );
                         },
                         trailing: Icon(
-                          sharedPreferences.getBool("prefs_animations_text") ==
-                                  false
+                          sharedPreferences.getBool("prefs_animations_text") == false
                               ? Icons.play_disabled_rounded
                               : Icons.play_arrow_rounded,
                         ),
@@ -158,15 +149,13 @@ class _PreferencesState extends State<Preferences> {
                           l10n.preferencesTextSizeReset,
                           style: titleStyle,
                         ),
-                        subtitle:
-                            Text(l10n.preferencesTextSizeResetDescription),
+                        subtitle: Text(l10n.preferencesTextSizeResetDescription),
                         dense: true,
                         onTap: () {
                           TextSizeNotifier.resetWith(context);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content:
-                                  Text(l10n.preferencesTextSizeResetSuccess),
+                              content: Text(l10n.preferencesTextSizeResetSuccess),
                             ),
                           );
                         },
@@ -183,8 +172,7 @@ class _PreferencesState extends State<Preferences> {
                             const ComingSoon(),
                           ],
                         ),
-                        subtitle:
-                            Text(l10n.preferencesExportJournalsDescription),
+                        subtitle: Text(l10n.preferencesExportJournalsDescription),
                         dense: true,
                         onTap: () {},
                         trailing: const Icon(Icons.file_download_outlined),
@@ -213,8 +201,7 @@ class _PreferencesState extends State<Preferences> {
                               context: context,
                               builder: (context) {
                                 return ConfirmationDialog(
-                                  type:
-                                      ConfirmationDialogType.deleteAllJournals,
+                                  type: ConfirmationDialogType.deleteAllJournals,
                                   dialogContext: context,
                                   onConfirm: () {},
                                   onCancel: () {},

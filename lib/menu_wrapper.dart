@@ -28,10 +28,8 @@ class MenuWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer5<JournalNotifier, ThemeModeNotifier, MessageNotifier,
-        TextSizeNotifier, FocusModeNotifier>(
-      builder:
-          (context, journals, themeMode, messenger, textSize, focusMode, _) {
+    return Consumer5<JournalNotifier, ThemeModeNotifier, MessageNotifier, TextSizeNotifier, FocusModeNotifier>(
+      builder: (context, journals, themeMode, messenger, textSize, focusMode, _) {
         final String themeModeTitle;
         switch (themeMode.mode) {
           case ThemeMode.system:
@@ -136,6 +134,8 @@ class MenuWrapper extends StatelessWidget {
                       ),
                       onSelected: () {
                         textSize.decrease();
+                        final mediaQueryData = MediaQuery.of(context);
+                        mediaQueryData.textScaler.scale(textSize.scale);
                         messenger.show(
                           title: context.l10n.messagesTextSizeChanged,
                           summary: textSize.readableSize(context),

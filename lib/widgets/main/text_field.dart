@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:jernal/data/notifiers/focus_mode.dart';
-import 'package:jernal/data/notifiers/text_size.dart';
 import 'package:jernal/utils/extensions.dart';
-import 'package:provider/provider.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.textEditingController,
-  }) : super(key: key);
+    required this.constraints,
+  });
 
   final TextEditingController textEditingController;
   final Function(String value) onChanged;
+  final BoxConstraints constraints;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField>
-    with SingleTickerProviderStateMixin {
+class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProviderStateMixin {
   final FocusNode textFocusNode = FocusNode(canRequestFocus: true);
   late ScrollController scrollController;
   late AnimationController animationController;
@@ -27,60 +26,36 @@ class _CustomTextFieldState extends State<CustomTextField>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TextSizeNotifier>(
-      builder: (context, notifier, _) {
-        return Container(
-          margin: EdgeInsets.only(
-            //left: 16.0 * animation.value,
-            //top: 28.0 * animation.value,
-            //right: 16.0 * animation.value,
-            bottom: 64.0 * animation.value,
+    return Container(
+      constraints: widget.constraints,
+      margin: EdgeInsets.only(
+        bottom: 64.0 * animation.value,
+      ),
+      padding: EdgeInsets.only(
+        top: 20.0,
+      ),
+      height: widget.constraints.maxHeight,
+      width: widget.constraints.maxWidth,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(50),
+            blurRadius: 4,
           ),
-          width: double.infinity,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withAlpha(50),
-                blurRadius: 4,
-              ),
-            ],
-          ),
-          child: TextField(
-            focusNode: textFocusNode,
-            scrollPadding: const EdgeInsets.only(bottom: 100),
-            controller: widget.textEditingController,
-            scrollController: scrollController,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(
-                top: 40.0,
-                left: 16.0,
-                right: 16.0,
-                bottom: 16.0 + (56.0 * (1.0 - animation.value)),
-              ),
-              border: InputBorder.none,
-              isDense: false,
-              hintText: l10n.textFieldHint,
-              filled: true,
-            ),
-            //expands: true,
-            //minLines: null,
-            //maxLines: null,
-            minLines: 1000,
-            maxLines: 9999999999,
-            keyboardType: TextInputType.multiline,
-            textAlign: TextAlign.start,
-            textAlignVertical: TextAlignVertical.top,
-            style: context.theme.textTheme.bodyMedium!.copyWith(
-              fontSize: notifier.textSize,
-            ),
-            onChanged: (value) {
-              widget.onChanged(value);
-            },
-          ),
-        );
-      },
+        ],
+      ),
+      child: TextField(
+        focusNode: textFocusNode,
+        controller: widget.textEditingController,
+        scrollController: scrollController,
+        style: context.theme.textTheme.bodyMedium,
+        onChanged: (value) {
+          widget.onChanged(value);
+        },
+      ),
     );
   }
 

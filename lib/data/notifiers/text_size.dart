@@ -20,12 +20,12 @@ class TextSizeNotifier extends ChangeNotifier {
   var _sizeIndex = 3;
   var textSize = 16.0;
 
-  static TextSizeNotifier getProvider(BuildContext context) =>
-      Provider.of<TextSizeNotifier>(context, listen: false);
+  double get scale => textSize / 16.0;
+
+  static TextSizeNotifier getProvider(BuildContext context) => Provider.of<TextSizeNotifier>(context, listen: false);
 
   /// Increase
-  static void increaseWith(BuildContext context) =>
-      getProvider(context).increase();
+  static void increaseWith(BuildContext context) => getProvider(context).increase();
 
   void increase() {
     _sizeIndex = min(_sizes.length - 1, _sizeIndex + 1);
@@ -34,8 +34,7 @@ class TextSizeNotifier extends ChangeNotifier {
   }
 
   /// Decrease
-  static void decreaseWith(BuildContext context) =>
-      getProvider(context).decrease();
+  static void decreaseWith(BuildContext context) => getProvider(context).decrease();
 
   void decrease() {
     _sizeIndex = max(0, _sizeIndex - 1);

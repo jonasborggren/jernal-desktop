@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  //final font = GoogleFonts.rubikTextTheme().copyWith();
+  static final font = TextTheme();
+
   static final colorScheme = ColorScheme(
     brightness: Brightness.light,
     tertiary: const Color(0xFF17C08F),
@@ -13,11 +15,9 @@ class AppTheme {
     onError: Colors.white,
     errorContainer: Colors.red,
     onErrorContainer: Colors.white,
-    background: const Color.fromARGB(255, 220, 220, 220),
-    onBackground: Colors.black,
     surface: Colors.white,
     onSurface: Colors.black,
-    surfaceVariant: const Color.fromARGB(255, 247, 248, 250),
+    surfaceContainerHighest: const Color.fromARGB(255, 247, 248, 250),
     onSurfaceVariant: const Color.fromARGB(255, 145, 155, 178),
     secondaryContainer: const Color.fromARGB(255, 231, 230, 239),
     onSecondaryContainer: Colors.black,
@@ -39,11 +39,9 @@ class AppTheme {
     onError: Colors.white,
     errorContainer: const Color.fromARGB(255, 201, 98, 91),
     onErrorContainer: Colors.white,
-    background: const Color.fromARGB(255, 23, 26, 28),
-    onBackground: Colors.white,
     surface: const Color.fromARGB(255, 43, 43, 49),
     onSurface: Colors.white,
-    surfaceVariant: const Color.fromARGB(255, 54, 55, 59),
+    surfaceContainerHighest: const Color.fromARGB(255, 54, 55, 59),
     onSurfaceVariant: Colors.black,
     secondaryContainer: Colors.black.withOpacity(0.1),
     onSecondaryContainer: Colors.white,
@@ -55,28 +53,26 @@ class AppTheme {
 
   static ThemeMode themeMode = ThemeMode.system;
 
-  static ListTileThemeData listTileTheme(ColorScheme colorScheme) =>
-      ListTileThemeData(
+  static ListTileThemeData listTileTheme(ColorScheme colorScheme) => ListTileThemeData(
         tileColor: Colors.transparent,
-        textColor: colorScheme.onBackground,
-        iconColor: colorScheme.onBackground,
+        textColor: colorScheme.onSurface,
+        iconColor: colorScheme.onSurface,
         selectedColor: colorScheme.primary,
         selectedTileColor: colorScheme.primary.withOpacity(0.1),
       );
 
   static TextTheme textTheme(ColorScheme colorScheme) {
-    final font = GoogleFonts.rubikTextTheme().copyWith();
     return font.copyWith(
       displayLarge: font.displayLarge?.copyWith(
-        color: colorScheme.onBackground,
+        color: colorScheme.onSurface,
         fontSize: 42,
       ),
       displayMedium: font.displayMedium?.copyWith(
-        color: colorScheme.onBackground,
+        color: colorScheme.onSurface,
         fontSize: 28,
       ),
       displaySmall: font.displaySmall?.copyWith(
-        color: colorScheme.onBackground,
+        color: colorScheme.onSurface,
         fontSize: 21,
       ),
       headlineLarge: font.headlineMedium?.copyWith(
@@ -98,6 +94,7 @@ class AppTheme {
       labelLarge: font.labelLarge?.copyWith(
         fontWeight: FontWeight.bold,
         color: colorScheme.onSurface,
+        fontSize: 16,
       ),
       bodySmall: font.bodySmall?.copyWith(
         color: colorScheme.onSurface,
@@ -116,8 +113,8 @@ class AppTheme {
 
   static ThemeData theme(ColorScheme colorScheme) => ThemeData(
         primaryColor: colorScheme.primary,
-        highlightColor: colorScheme.onBackground.withOpacity(0.15),
-        hoverColor: colorScheme.onBackground.withOpacity(0.1),
+        highlightColor: colorScheme.onSurface.withOpacity(0.15),
+        hoverColor: colorScheme.onSurface.withOpacity(0.1),
         useMaterial3: true,
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
@@ -138,42 +135,38 @@ class AppTheme {
         listTileTheme: listTileTheme(colorScheme),
         textTheme: textTheme(colorScheme),
         buttonTheme: const ButtonThemeData(),
-        progressIndicatorTheme:
-            ProgressIndicatorThemeData(color: colorScheme.primary),
+        progressIndicatorTheme: ProgressIndicatorThemeData(color: colorScheme.primary),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled) ||
-                  states.contains(MaterialState.error)) {
+            foregroundColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.disabled) || states.contains(WidgetState.error)) {
                 return colorScheme.onSurface.withOpacity(0.5);
               }
               return colorScheme.onPrimary;
             }),
-            backgroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.disabled)) {
+            backgroundColor: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.disabled)) {
                 return colorScheme.onSurface.withOpacity(0.1);
-              } else if (states.contains(MaterialState.error)) {
+              } else if (states.contains(WidgetState.error)) {
                 return colorScheme.error;
               }
               return colorScheme.primary;
             }),
-            shape: MaterialStateProperty.all(
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            textStyle: MaterialStateProperty.resolveWith((states) {
+            textStyle: WidgetStateProperty.resolveWith((states) {
               return textTheme(colorScheme).labelLarge?.copyWith(
                     fontStyle: FontStyle.normal,
-                    color: states.contains(MaterialState.disabled) &&
-                            states.length == 1
+                    color: states.contains(WidgetState.disabled) && states.length == 1
                         ? colorScheme.primary
                         : colorScheme.onPrimary,
                   );
             }),
           ),
         ),
-        colorScheme: colorScheme.copyWith(
-            primary: Colors.grey, background: colorScheme.background),
+        colorScheme: colorScheme.copyWith(primary: Colors.grey, surface: colorScheme.surface),
       );
 }

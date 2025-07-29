@@ -5,7 +5,7 @@ import 'package:jernal/widgets/common/on_hover.dart';
 import 'package:provider/provider.dart';
 
 class FocusModeToggle extends StatefulWidget {
-  const FocusModeToggle({Key? key}) : super(key: key);
+  const FocusModeToggle({super.key});
 
   @override
   State<FocusModeToggle> createState() => _FocusModeToggleState();
@@ -47,9 +47,7 @@ class _FocusModeToggleState extends State<FocusModeToggle> {
                 radius: 0.0,
                 hoverColor: Colors.transparent,
                 child: Icon(
-                  isFocusModeEnabled
-                      ? Icons.unfold_less_rounded
-                      : Icons.expand_rounded,
+                  isFocusModeEnabled ? Icons.unfold_less_rounded : Icons.expand_rounded,
                   color: context.colorScheme.onTertiary,
                 ),
                 onTap: () {

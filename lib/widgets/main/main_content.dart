@@ -18,15 +18,14 @@ import 'package:provider/provider.dart';
 
 class MainContent extends StatefulWidget {
   const MainContent({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _MainContentState();
 }
 
-class _MainContentState extends State<MainContent>
-    with TickerProviderStateMixin {
+class _MainContentState extends State<MainContent> with TickerProviderStateMixin {
   late CustomTextEditingController textEditingController;
 
   final FocusNode textFocusNode = FocusNode(canRequestFocus: true);
@@ -40,258 +39,252 @@ class _MainContentState extends State<MainContent>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Consumer4<FocusModeNotifier, JournalNotifier, OnboardingNotifier,
-          TextSizeNotifier>(
-        builder: (context, focusMode, journals, onboarding, textSize, child) {
-          bool doingOnboarding = onboarding.isDoingOnboarding;
+      backgroundColor: context.theme.colorScheme.secondaryContainer,
+      body: LayoutBuilder(builder: (context, constraints) {
+        return Consumer3<FocusModeNotifier, OnboardingNotifier, TextSizeNotifier>(
+          builder: (context, focusMode, onboarding, textSize, child) {
+            bool doingOnboarding = onboarding.isDoingOnboarding;
+            final journals = context.watch<JournalNotifier>();
 
-          if (journals.currentIndex > 0) {
-            final key =
-                GlobalObjectKey(journals.currentIndex - 1).currentContext;
-            if (key != null) {
-              // Scroll to item
-              Scrollable.ensureVisible(key);
+            if (journals.currentIndex > 0) {
+              final key = GlobalObjectKey(journals.currentIndex - 1).currentContext;
+              if (key != null) {
+                // Scroll to item
+                Scrollable.ensureVisible(key);
+              }
             }
-          }
 
-          final items = journals.items;
-          final currentIndex = journals.currentIndex;
-          final currentItem = items.isNotEmpty ? items[currentIndex] : null;
-          if (textEditingController.text != currentItem?.body) {
-            textEditingController.text = currentItem?.body ?? "";
-          }
+            final items = journals.items;
+            final currentIndex = journals.currentIndex;
+            final currentItem = items.isNotEmpty ? items[currentIndex] : null;
+            if (textEditingController.text != currentItem?.body) {
+              textEditingController.text = currentItem?.body ?? "";
+            }
 
-          //if (!isFocusModeEnabled) {
-          //  controller.forward();
-          //} else {
-          //  controller.reverse();
-          // }
-          buttonForeground(bool enabled) => enabled
-              ? context.theme.elevatedButtonTheme.style?.foregroundColor
-                  ?.resolve({MaterialState.focused})
-              : context.colorScheme.onSurface;
-          buttonBackground(MaterialState state) =>
-              context.theme.elevatedButtonTheme.style?.backgroundColor
-                  ?.resolve({state});
-          final numberCounterForeground = context.colorScheme.onSurface;
+            //if (!isFocusModeEnabled) {
+            //  controller.forward();
+            //} else {
+            //  controller.reverse();
+            // }
+            buttonForeground(bool enabled) => enabled
+                ? context.theme.elevatedButtonTheme.style?.foregroundColor?.resolve({WidgetState.focused})
+                : context.colorScheme.onSurface;
+            buttonBackground(WidgetState state) =>
+                context.theme.elevatedButtonTheme.style?.backgroundColor?.resolve({state});
+            final numberCounterForeground = context.colorScheme.onSurface;
 
-          const iconSize = 16.0;
-          final combinedButtonStyle = ElevatedButton.styleFrom(
-            minimumSize: Size.zero,
-            shape: const RoundedRectangleBorder(),
-            backgroundColor: buttonBackground(MaterialState.disabled),
-            shadowColor: Colors.transparent,
-            //foregroundColor: context.colorScheme.onSecondary,
-            foregroundColor: MaterialStateColor.resolveWith((states) {
-              return buttonForeground(
-                      states.contains(MaterialState.disabled)) ??
-                  context.colorScheme.onSurface;
-            }),
-            elevation: 0.0,
-            padding: const EdgeInsets.only(
-              top: 16.0,
-              bottom: 16.0,
-              left: 8.0,
-              right: 8.0,
-            ),
-          );
-          const buttonPadding = EdgeInsets.only(
-            left: 6,
-            right: 10,
-            top: 2,
-            bottom: 2,
-          );
-          final buttonStyle = ElevatedButton.styleFrom(
-            minimumSize: Size.zero,
-            padding: const EdgeInsets.only(
-              left: 4,
-              top: 12,
-              bottom: 12,
-            ),
-          );
-          final canDelete = currentIndex != 0 ||
-              textEditingController.text.isNotEmpty == true;
+            const iconSize = 16.0;
+            final combinedButtonStyle = ElevatedButton.styleFrom(
+              minimumSize: Size.zero,
+              shape: const RoundedRectangleBorder(),
+              backgroundColor: buttonBackground(WidgetState.disabled),
+              shadowColor: Colors.transparent,
+              //foregroundColor: context.colorScheme.onSecondary,
+              foregroundColor: WidgetStateColor.resolveWith((states) {
+                return buttonForeground(states.contains(WidgetState.disabled)) ?? context.colorScheme.onSurface;
+              }),
+              elevation: 0.0,
+              padding: const EdgeInsets.only(
+                top: 16.0,
+                bottom: 16.0,
+                left: 8.0,
+                right: 8.0,
+              ),
+            );
+            const buttonPadding = EdgeInsets.only(
+              left: 6,
+              right: 10,
+              top: 2,
+              bottom: 2,
+            );
+            final buttonStyle = ElevatedButton.styleFrom(
+              minimumSize: Size.zero,
+              padding: const EdgeInsets.only(
+                left: 4,
+                top: 12,
+                bottom: 12,
+              ),
+            );
+            final canDelete = currentIndex != 0 || textEditingController.text.isNotEmpty == true;
 
-          return MessengerWrapper(
-            child: Stack(
-              children: [
-                PageWrapper(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Container(
-                            height: 32,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            clipBehavior: Clip.antiAlias,
-                            child: Row(
-                              children: [
-                                ElevatedButton(
-                                  style: combinedButtonStyle,
-                                  onPressed: journals.canGoPrevious
-                                      ? () {
-                                          journals.previous();
-                                        }
-                                      : null,
-                                  child: const Icon(
-                                    Icons.arrow_back_ios_new_rounded,
-                                    size: iconSize,
+            return MessengerWrapper(
+              child: Stack(
+                children: [
+                  PageWrapper(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Spacer(),
+                        Row(
+                          children: [
+                            Container(
+                              height: 32,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                    style: combinedButtonStyle,
+                                    onPressed: journals.canGoPrevious
+                                        ? () {
+                                            journals.previous();
+                                          }
+                                        : null,
+                                    child: const Icon(
+                                      Icons.arrow_back_ios_new_rounded,
+                                      size: iconSize,
+                                    ),
                                   ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: onJournalIndexClicked,
-                                  style: combinedButtonStyle.copyWith(
-                                    padding: const MaterialStatePropertyAll(
-                                      EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 15,
+                                  ElevatedButton(
+                                    onPressed: onJournalIndexClicked,
+                                    style: combinedButtonStyle.copyWith(
+                                      padding: const WidgetStatePropertyAll(
+                                        EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 15,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      constraints: const BoxConstraints(
+                                        minWidth: 12.0,
+                                      ),
+                                      child: Text(
+                                        journals.number.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: context.theme.textTheme.bodySmall?.copyWith(
+                                          color: numberCounterForeground,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                      minWidth: 12.0,
-                                    ),
-                                    child: Text(
-                                      journals.number.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: context.theme.textTheme.bodySmall
-                                          ?.copyWith(
-                                        color: numberCounterForeground,
-                                      ),
+                                  ElevatedButton(
+                                    style: combinedButtonStyle,
+                                    onPressed: journals.canGoNext
+                                        ? () {
+                                            journals.next();
+                                          }
+                                        : null,
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: iconSize,
                                     ),
                                   ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                            ElevatedButton(
+                              style: buttonStyle,
+                              onPressed: canDelete ? onDeleteClicked : null,
+                              child: Padding(
+                                padding: buttonPadding,
+                                child: Icon(
+                                  Icons.delete_outline_rounded,
+                                  size: 20,
+                                  color: canDelete ? context.colorScheme.error : null,
                                 ),
-                                ElevatedButton(
-                                  style: combinedButtonStyle,
-                                  onPressed: journals.canGoNext
-                                      ? () {
-                                          journals.next();
-                                        }
-                                      : null,
-                                  child: const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    size: iconSize,
-                                  ),
+                              ),
+                            ),
+                            const SizedBox(width: 8.0),
+                            ElevatedButton(
+                              style: buttonStyle,
+                              onPressed: () {
+                                textSize.decrease();
+                              },
+                              child: const Padding(
+                                padding: buttonPadding,
+                                child: Icon(
+                                  Icons.text_decrease_rounded,
+                                  size: 18,
                                 ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          ElevatedButton(
-                            style: buttonStyle,
-                            onPressed: canDelete ? onDeleteClicked : null,
-                            child: Padding(
-                              padding: buttonPadding,
-                              child: Icon(
-                                Icons.delete_outline_rounded,
-                                size: 20,
-                                color: canDelete
-                                    ? context.colorScheme.error
-                                    : null,
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          ElevatedButton(
-                            style: buttonStyle,
-                            onPressed: () {
-                              textSize.decrease();
-                            },
-                            child: const Padding(
-                              padding: buttonPadding,
-                              child: Icon(
-                                Icons.text_decrease_rounded,
-                                size: 18,
+                            const SizedBox(width: 8.0),
+                            ElevatedButton(
+                              style: buttonStyle,
+                              onPressed: () {
+                                textSize.increase();
+                              },
+                              child: const Padding(
+                                padding: buttonPadding,
+                                child: Icon(
+                                  Icons.text_increase_rounded,
+                                  size: 18,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          ElevatedButton(
-                            style: buttonStyle,
-                            onPressed: () {
-                              textSize.increase();
-                            },
-                            child: const Padding(
-                              padding: buttonPadding,
-                              child: Icon(
-                                Icons.text_increase_rounded,
-                                size: 18,
+                            const SizedBox(width: 8.0),
+                            ElevatedButton(
+                              style: buttonStyle,
+                              onPressed: () {
+                                textSize.reset();
+                              },
+                              child: const Padding(
+                                padding: buttonPadding,
+                                child: Icon(
+                                  Icons.format_clear_rounded,
+                                  size: 18,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          ElevatedButton(
-                            style: buttonStyle,
-                            onPressed: () {
-                              textSize.reset();
-                            },
-                            child: const Padding(
-                              padding: buttonPadding,
-                              child: Icon(
-                                Icons.format_clear_rounded,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                CustomTextField(
-                  textEditingController: textEditingController,
-                  onChanged: (value) {
-                    items[currentIndex].body = value;
-                    setState(() {
-                      onChanged = true;
-                    });
-                  },
-                ),
-                const FocusModeToggle(),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  margin: const EdgeInsets.only(right: 16, bottom: 16),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AchievementsTicker(
-                        controller: textEditingController,
-                        size: const Size(24, 24),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: textEditingController.text.isNotEmpty
-                            ? () {
-                                onSaveClicked(currentIndex);
-                              }
-                            : null,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 2,
-                          ),
-                          child: Text(l10n.save),
+                          ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                if (doingOnboarding) const Onboarding()
-              ],
-            ),
-          );
-        },
-      ),
+                  CustomTextField(
+                    constraints: constraints,
+                    textEditingController: textEditingController,
+                    onChanged: (value) {
+                      items[currentIndex].body = value;
+                      setState(() {
+                        onChanged = true;
+                      });
+                    },
+                  ),
+                  const FocusModeToggle(),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    margin: const EdgeInsets.only(right: 16, bottom: 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AchievementsTicker(
+                          controller: textEditingController,
+                          size: const Size(24, 24),
+                        ),
+                        const SizedBox(width: 16),
+                        ElevatedButton(
+                          onPressed: textEditingController.text.isNotEmpty
+                              ? () {
+                                  onSaveClicked(currentIndex);
+                                }
+                              : null,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            child: Text(l10n.save),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (doingOnboarding) const Onboarding()
+                ],
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 
