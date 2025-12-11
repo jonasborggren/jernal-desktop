@@ -51,6 +51,7 @@ class _CustomTextFieldState extends State<CustomTextField> with SingleTickerProv
         focusNode: textFocusNode,
         controller: widget.textEditingController,
         scrollController: scrollController,
+        maxLines: null,
         style: context.theme.textTheme.bodyMedium,
         onChanged: (value) {
           widget.onChanged(value);

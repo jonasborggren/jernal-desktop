@@ -9,8 +9,7 @@ class GameNotifier extends ChangeNotifier {
   List<Achievement> _achievements = [];
   List<Achievement> get achievements => _achievements;
 
-  Achievement? get nextAchievment => Achievement.values
-      .firstWhereOrNull((element) => element.requiredPoints > points);
+  Achievement? get nextAchievment => Achievement.values.firstWhereOrNull((element) => element.requiredPoints > points);
 
   void setPoints(int points) {
     final prevPoints = _points;
@@ -21,8 +20,7 @@ class GameNotifier extends ChangeNotifier {
     }
   }
 
-  bool outsideScoring(int myPoints) =>
-      myPoints > Achievement.values.last.requiredPoints;
+  bool outsideScoring(int myPoints) => myPoints > Achievement.values.last.requiredPoints;
 
   static void setPointsWith(BuildContext context, int points) =>
       Provider.of<GameNotifier>(context, listen: false).setPoints(points);
@@ -70,6 +68,24 @@ enum Achievement {
     "Jernalist",
     "UNLIMITED",
     Color.fromARGB(255, 135, 205, 253),
+  ),
+  jernalist2(
+    10000,
+    "Jernalist 2",
+    "UNLIMITED",
+    Color.fromARGB(255, 253, 208, 135),
+  ),
+  jernalist3(
+    20000,
+    "Jernalist 3",
+    "UNLIMITED",
+    Color.fromARGB(255, 253, 194, 135),
+  ),
+  jernalist4(
+    50000,
+    "Jernalist 4",
+    "UNLIMITED",
+    Color.fromARGB(255, 253, 161, 135),
   ),
   ;
 
